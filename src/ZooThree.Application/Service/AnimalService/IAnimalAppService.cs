@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZooThree.Service.Dto;
+using ZooThree.Service.Dto.CustomCreateDto;
 
 namespace ZooThree.Service.AnimalService
 {
     public interface IAnimalAppService: IApplicationService
     {
-        Task<AnimalDto> CreateAsync(AnimalDto input);
+        Task<CreateSpeciesDto> CreateAsync(CreateSpeciesDto input);
         Task<AnimalDto> GetAsync(Guid id);
         Task<List<AnimalDto>> GetAllAsync();
         Task<AnimalDto> UpdateAsync(AnimalDto input);

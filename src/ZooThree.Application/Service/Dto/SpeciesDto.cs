@@ -13,8 +13,8 @@ namespace ZooThree.Service.Dto
     public class SpeciesDto: FullAuditedEntity<Guid>
     {
         public string SpeciesName { get; set; }
+
         public EnclosureDto Enclosure { get; set; }
-      //  public EnclosureDto Enclosure { get; set; }
         public int NumberAlive { get; set; }
         public int NumberDead { get; set; }
         public int NumberBirth { get; set; }

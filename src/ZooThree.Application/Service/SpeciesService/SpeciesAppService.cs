@@ -1,6 +1,5 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +48,6 @@ namespace ZooThree.Service.SpeciesService
             return ObjectMapper.Map<List<SpeciesDto>>(await _speciesRepository.GetAllListAsync());
         }
 
-
         /// <summary>
         /// 
         /// </summary>
@@ -58,25 +56,12 @@ namespace ZooThree.Service.SpeciesService
             return ObjectMapper.Map<SpeciesDto>(await _speciesRepository.GetAsync(id));
         }
 
-     /*   public async Task<SpeciesDto> GetSpeciesAsync(Guid id)
-        {
-            var species = await _speciesRepository.GetAllIncluding(s => s.EnclosureId)
-                                         .FirstOrDefaultAsync(s => s.Id == id);
-
-            return ObjectMapper.Map<SpeciesDto>(species);
-        }*/
-
-
         /// <summary>
         /// 
         /// </summary>
         public async Task<SpeciesDto> UpdateSpeciesAsync(SpeciesDto input)
         {
             var species = await _speciesRepository.GetAsync(input.Id);
-            species.SpeciesName = input.SpeciesName;
-            species.NumberAlive = input.NumberAlive;
-            species.NumberDead = input.NumberDead;
-            species.NumberBirth = input.NumberBirth;
 
             ObjectMapper.Map(input, species);
             return ObjectMapper.Map<SpeciesDto>(species);

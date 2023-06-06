@@ -1600,7 +1600,7 @@ namespace ZooThree.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid?>("SpeciesId")
+                    b.Property<Guid>("SpeciesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -2033,7 +2033,9 @@ namespace ZooThree.Migrations
                 {
                     b.HasOne("ZooThree.Domain.Species", "Species")
                         .WithMany()
-                        .HasForeignKey("SpeciesId");
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Species");
                 });
