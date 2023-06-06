@@ -15,7 +15,7 @@ namespace ZooThree.Service.PersonService.NewFolder
         public PersonMapProfile()
         {
             CreateMap<Person, PersonDto>()
-                .ForMember(x => x.Id, m => m.MapFrom(x => x.User != null));
+                .ForMember(x => x.Id, m => m.MapFrom(x => x.User != null ? x.User.Id : (long?)null));
 
             CreateMap<PersonDto, User>()
               .ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
