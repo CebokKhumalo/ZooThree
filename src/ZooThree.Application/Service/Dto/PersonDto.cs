@@ -13,41 +13,15 @@ namespace ZooThree.Service.Dto
     [AutoMap(typeof(Person))]
     public class PersonDto : EntityDto<Guid>
     {
+
         /// <summary>
         /// 
         /// </summary>
         public string UserName { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-
         public string Name { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Surname { get; set; }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        public string PhoneNumber { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string EmailAddress { get; set; }
-       
-        /// <summary>
-        /// 
-        /// </summary>
-        public string GenderName { get; set; }
-    
-        /// <summary>
-        /// 
-        /// </summary>
-        public long UserId { get; set; }
-        /// <summary>
-        /// 
-        /// </summary>
-        public string[] RoleNames { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public long userId { get; set; }
+
     }
 }

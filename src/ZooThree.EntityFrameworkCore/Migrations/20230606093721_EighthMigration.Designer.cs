@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ZooThree.EntityFrameworkCore;
 
@@ -11,9 +12,10 @@ using ZooThree.EntityFrameworkCore;
 namespace ZooThree.Migrations
 {
     [DbContext(typeof(ZooThreeDbContext))]
-    partial class ZooThreeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230606093721_EighthMigration")]
+    partial class EighthMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1718,7 +1720,7 @@ namespace ZooThree.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("EnclosureId")
+                    b.Property<Guid?>("EnclosureId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
@@ -1743,6 +1745,8 @@ namespace ZooThree.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnclosureId");
 
                     b.ToTable("Specieses");
                 });
@@ -2045,6 +2049,15 @@ namespace ZooThree.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ZooThree.Domain.Species", b =>
+                {
+                    b.HasOne("ZooThree.Domain.Enclosure", "Enclosure")
+                        .WithMany()
+                        .HasForeignKey("EnclosureId");
+
+                    b.Navigation("Enclosure");
                 });
 
             modelBuilder.Entity("ZooThree.MultiTenancy.Tenant", b =>

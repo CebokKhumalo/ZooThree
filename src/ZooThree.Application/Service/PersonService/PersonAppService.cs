@@ -1,6 +1,7 @@
 ﻿using Abp.Application.Services;
 using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
+using Abp.Localization;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,17 @@ namespace ZooThree.Service.PersonService
     {
         private readonly IRepository<Person, Guid> _personRepsitory;
         private readonly UserManager _userManager;
+        private ILocalizationManager _localizationManager;
 
         /// <summary>
         /// 
         /// </summary>
 
-        public PersonAppService(IRepository<Person, Guid> personRepsitory, UserManager userManager)
+        public PersonAppService(IRepository<Person, Guid> personRepsitory, UserManager userManager, ILocalizationManager localizationManager)
         {
             _personRepsitory = personRepsitory;
             _userManager = userManager;
+            _localizationManager = localizationManager;
         }
 
         /// <summary>
@@ -33,10 +36,7 @@ namespace ZooThree.Service.PersonService
         /// </summary>
         public async Task<PersonDto> CreateAsync(PersonDto input)
         {
-            var person = ObjectMapper.Map<Person>(input);
-            person.User = await CreateUser(input);
-            return ObjectMapper.Map<PersonDto>(
-                await _personRepsitory.InsertAsync(person));
+            return ObjectMapper.Map<PersonDto>(await _personRepsitory.InsertAsync(ObjectMapper.Map<Person>(input)));
         }
 
         /// <summary>
@@ -52,17 +52,17 @@ namespace ZooThree.Service.PersonService
         /// </summary>
         public async Task<List<PersonDto>> GetAllAsync()
         {
-            var query = _personRepsitory.GetAllIncluding(m => m.User).ToList();
-            return ObjectMapper.Map<List<PersonDto>>(query);
+            var people = await _personRepsitory.GetAllListAsync();
+            return ObjectMapper.Map<List<PersonDto>>(people);
         }
+
 
         /// <summary>
         /// 
         /// </summary>
         public async Task<PersonDto> GetAsync(Guid id)
         {
-            var query = _personRepsitory.GetAllIncluding(m => m.User).FirstOrDefault(x => x.Id == id);
-            return ObjectMapper.Map<PersonDto>(query);
+             return ObjectMapper.Map<PersonDto>(await _personRepsitory.GetAsync(id));
         }
 
         /// <summary>
@@ -79,10 +79,12 @@ namespace ZooThree.Service.PersonService
         {
             var user = ObjectMapper.Map<User>(input);
             ObjectMapper.Map(input, user);
+
             if (!string.IsNullOrEmpty(user.NormalizedUserName) && !string.IsNullOrEmpty(user.NormalizedEmailAddress))
                 user.SetNormalizedNames();
             user.TenantId = AbpSession.TenantId;
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
+            CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
             CurrentUnitOfWork.SaveChanges();
             return user;
@@ -93,7 +95,7 @@ namespace ZooThree.Service.PersonService
         /// </summary>
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
-            identityResult.CheckErrors(LocalizationManager);
+            identityResult.CheckErrors(_localizationManager);
         }
     }
 }

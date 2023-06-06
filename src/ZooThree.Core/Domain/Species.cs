@@ -12,6 +12,7 @@ namespace ZooThree.Domain
         public virtual string SpeciesName { get; set; }
        // public Zookeeper Zookeepers { get; set; }
         public Enclosure Enclosure { get; set; }
+        public virtual Guid EnclosureId { get; set; }
         public virtual int NumberAlive { get; set; }
         public virtual int NumberDead { get; set; }
         public virtual int NumberBirth { get; set; }

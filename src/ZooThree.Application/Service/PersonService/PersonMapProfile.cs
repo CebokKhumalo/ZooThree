@@ -8,21 +8,20 @@ using ZooThree.Authorization.Users;
 using ZooThree.Domain;
 using ZooThree.Service.Dto;
 
-namespace ZooThree.Service.PersonService.NewFolder
+namespace ZooThree.Service.PersonService
 {
-    public class PersonMapProfile :Profile
+    public class PersonMapProfile : Profile
     {
         public PersonMapProfile()
         {
             CreateMap<Person, PersonDto>()
-                .ForMember(x => x.Id, m => m.MapFrom(x => x.User != null ? x.User.Id : (long?)null));
+               .ForMember(x => x.userId, m => m.MapFrom(x => x.User != null ? x.User.Id : (long?)null));
 
             CreateMap<PersonDto, User>()
               .ForMember(x => x.Name, m => m.MapFrom(x => x.Name))
-              .ForMember(x => x.PhoneNumber, m => m.MapFrom(x => x.PhoneNumber))
-              .ForMember(x => x.EmailAddress, m => m.MapFrom(x => x.EmailAddress))
-              .ForMember(x => x.FullName, m => m.MapFrom(x => x.Name + " " + x.Surname))
-              .ForMember(x => x.Surname, m => m.MapFrom(x => x.Surname));
+              .ForMember(x => x.Password, m => m.MapFrom(x => x.Password))
+              .ForMember(x => x.EmailAddress, m => m.MapFrom(x => x.Email))
+              .ForMember(x => x.UserName, m => m.MapFrom(m => m.UserName + "2323"));
 
             CreateMap<PersonDto, User>()
                 .ForMember(e => e.Id, d => d.Ignore());
