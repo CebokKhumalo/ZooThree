@@ -34,5 +34,8 @@ namespace ZooThree.Service.SpeciesService
         ///
         /// </summary>
         Task DeleteSpeciesAsync(Guid id);
+
+
+        Task<SpeciesDto> GetSpeciesByName(string speciesName);
     }
 }

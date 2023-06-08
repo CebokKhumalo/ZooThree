@@ -66,5 +66,15 @@ namespace ZooThree.Service.SpeciesService
             ObjectMapper.Map(input, species);
             return ObjectMapper.Map<SpeciesDto>(species);
         }
+
+     
+
+        public async Task<SpeciesDto> GetSpeciesByName(string speciesName)
+        {
+            var species = await _speciesRepository.FirstOrDefaultAsync(s => s.SpeciesName.ToLower() == speciesName.ToLower());
+            return ObjectMapper.Map<SpeciesDto>(species);
+        }
+
+     
     }
 }

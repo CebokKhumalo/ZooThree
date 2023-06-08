@@ -15,7 +15,7 @@ namespace ZooThree.Service.Dto.CustomCreateDto
     {
 
         public string AnimalName { get; set; }
-        public Guid SpeciesId { get; set; }
+        public string SpeciesName { get; set; }
         public int Age { get; set; }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ZooThree.Domain;
 using ZooThree.Service.Dto;
 using ZooThree.Service.Dto.CustomCreateDto;
+using ZooThree.Service.SpeciesService;
 
 namespace ZooThree.Service.AnimalService
 {
@@ -18,25 +19,42 @@ namespace ZooThree.Service.AnimalService
     public class AnimalAppService: ApplicationService, IAnimalAppService
     {
         private readonly IRepository<Animal,Guid> _animalRepository;
+        private readonly ISpeciesAppService _speciesAppService;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// 
         /// </summary>
-        public AnimalAppService(IRepository<Animal, Guid> animalRepository, IMapper mapper)
+        public AnimalAppService(IRepository<Animal, Guid> animalRepository, IMapper mapper, ISpeciesAppService speciesAppService)
         {
             _animalRepository = animalRepository;
             _mapper = mapper;
+            _speciesAppService = speciesAppService;
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public async Task<CreateSpeciesDto> CreateAsync(CreateSpeciesDto input)
+        public async Task<AnimalDto> CreateAsync(CreateSpeciesDto input)
         {
-            var animal = ObjectMapper.Map<Animal>(input);
+            /*var animal = ObjectMapper.Map<Animal>(input);
+              /*    var species  = 
+                    animal.SpeciesId =
+              var createdAnimal = await _animalRepository.InsertAsync(animal);
+              return ObjectMapper.Map<CreateSpeciesDto>(createdAnimal);*/
+
+            var species = await _speciesAppService.GetSpeciesByName(input.SpeciesName) ?? throw new Exception("Species not found");
+          
+            var animal = new Animal
+            {
+                AnimalName = input.AnimalName,
+                SpeciesId = species.Id,
+                Age = input.Age
+            };
+
             var createdAnimal = await _animalRepository.InsertAsync(animal);
-            return ObjectMapper.Map<CreateSpeciesDto>(createdAnimal);
+            return ObjectMapper.Map<AnimalDto>(createdAnimal);
+
         }
 
         /// <summary>
@@ -70,7 +88,7 @@ namespace ZooThree.Service.AnimalService
         {
             var animal = await _animalRepository.GetAsync(input.Id);
             _mapper.Map(input, animal);
-            animal.Species = _mapper.Map<Species>(input.Species);
+           // animal.SpeciesId = _mapper.Map<SpeciesDto>(input.Species.Id);
 
             return _mapper.Map<AnimalDto>(animal);
         }
