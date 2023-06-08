@@ -1,5 +1,5 @@
 ﻿using Abp.Application.Services.Dto;
-using Abp.Domain.Entities.Auditing;
+using Abp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace ZooThree.Service.Dto.CustomCreateDto
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class CreateSpeciesDto : EntityDto<Guid>
+    public class CreateSpeciesDto: EntityDto<Guid>
     {
-
-        public string AnimalName { get; set; }
         public string SpeciesName { get; set; }
-        public int Age { get; set; }
+
+        //public string EnclosureId { get; set; }
+        public string EnclosureName { get; set; }
+        public int NumberAlive { get; set; }
+        public int NumberDead { get; set; }
+        public int NumberBirth { get; set; }
+
+
+        //  public ZookeepersDto Zookeepers { get; set; }
+
     }
 }

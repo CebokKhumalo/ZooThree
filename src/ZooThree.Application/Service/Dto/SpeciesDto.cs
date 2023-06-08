@@ -1,4 +1,5 @@
-﻿using Abp.AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using ZooThree.Domain;
 namespace ZooThree.Service.Dto
 {
     [AutoMap(typeof(Species))]
-    public class SpeciesDto: FullAuditedEntity<Guid>
+    public class SpeciesDto: EntityDto<Guid>
     {
         public string SpeciesName { get; set; }
 
@@ -22,5 +23,6 @@ namespace ZooThree.Service.Dto
 
 
         //  public ZookeepersDto Zookeepers { get; set; }
+
     }
 }

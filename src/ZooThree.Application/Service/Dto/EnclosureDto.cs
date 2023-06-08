@@ -1,4 +1,5 @@
-﻿using Abp.AutoMapper;
+﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
 using Abp.Domain.Entities.Auditing;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using ZooThree.Domain;
 namespace ZooThree.Service.Dto
 {
     [AutoMap(typeof(Enclosure))]
-    public class EnclosureDto:FullAuditedEntity<Guid>
+    public class EnclosureDto:EntityDto<Guid>
     {
         public string EnclosureName { get; set; }
         public int CurrentCapacity { get; set; }

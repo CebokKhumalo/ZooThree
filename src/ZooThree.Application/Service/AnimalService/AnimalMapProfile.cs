@@ -14,10 +14,10 @@ namespace ZooThree.Service.AnimalService
     {
         public AnimalMapProfile()   
         {
-            CreateMap<SpeciesDto, CreateSpeciesDto>()
+            CreateMap<SpeciesDto, CreateAnimalDto>()
                 .ForMember(x=>x.SpeciesName, m=> m.MapFrom(x => x.SpeciesName));
 
-            CreateMap<CreateSpeciesDto, SpeciesDto>()
+            CreateMap<CreateAnimalDto, SpeciesDto>()
                 .ForMember(e => e.SpeciesName, d => d.Ignore());
 
 

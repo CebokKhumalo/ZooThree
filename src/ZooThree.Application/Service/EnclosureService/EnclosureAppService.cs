@@ -39,6 +39,13 @@ namespace ZooThree.Service.EnclosureService
             return ObjectMapper.Map<EnclosureDto>(await _enclosureRepository.GetAsync(id));
         }
 
+        public async Task<EnclosureDto> GetEnclosureByName(string enclosureName)
+        {
+
+            var enclosure = await _enclosureRepository.FirstOrDefaultAsync(s => s.EnclosureName.ToLower() == enclosureName.ToLower());
+            return ObjectMapper.Map<EnclosureDto>(enclosure);
+        }
+
         public async Task<EnclosureDto> UpdateEnclosureAsync(EnclosureDto input)
         {
             var enclosure = await _enclosureRepository.GetAsync(input.Id);

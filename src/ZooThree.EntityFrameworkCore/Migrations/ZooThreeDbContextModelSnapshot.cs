@@ -1605,8 +1605,6 @@ namespace ZooThree.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SpeciesId");
-
                     b.ToTable("Animals");
                 });
 
@@ -1720,6 +1718,9 @@ namespace ZooThree.Migrations
 
                     b.Property<Guid>("EnclosureId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EnclosureName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -2027,17 +2028,6 @@ namespace ZooThree.Migrations
                     b.Navigation("DeleterUser");
 
                     b.Navigation("LastModifierUser");
-                });
-
-            modelBuilder.Entity("ZooThree.Domain.Animal", b =>
-                {
-                    b.HasOne("ZooThree.Domain.Species", "Species")
-                        .WithMany()
-                        .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Species");
                 });
 
             modelBuilder.Entity("ZooThree.Domain.Person", b =>

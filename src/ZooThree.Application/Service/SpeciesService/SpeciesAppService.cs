@@ -10,13 +10,13 @@ using ZooThree.Service.Dto;
 
 namespace ZooThree.Service.SpeciesService
 {
-    public class SpeciesAppService: ApplicationService, ISpeciesAppService
+    public class SpeciesAppService : ApplicationService, ISpeciesAppService
     {
         private readonly IRepository<Species, Guid> _speciesRepository;
 
         public SpeciesAppService(IRepository<Species, Guid> speciesRepository)
         {
-           
+
             _speciesRepository = speciesRepository;
         }
 
@@ -37,7 +37,7 @@ namespace ZooThree.Service.SpeciesService
         /// </summary>
         public async Task DeleteSpeciesAsync(Guid id)
         {
-           await _speciesRepository.DeleteAsync(id);
+            await _speciesRepository.DeleteAsync(id);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace ZooThree.Service.SpeciesService
             return ObjectMapper.Map<SpeciesDto>(species);
         }
 
-     
+
 
         public async Task<SpeciesDto> GetSpeciesByName(string speciesName)
         {
@@ -75,6 +75,6 @@ namespace ZooThree.Service.SpeciesService
             return ObjectMapper.Map<SpeciesDto>(species);
         }
 
-     
+
     }
 }

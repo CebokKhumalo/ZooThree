@@ -34,5 +34,8 @@ namespace ZooThree.Service.EnclosureService
         ///
         /// </summary>
         Task DeleteEnclosureAsync(Guid id);
+
+
+        Task<EnclosureDto> GetEnclosureByName(string EnclosureName);
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZooThree.Service.Dto;
+using ZooThree.Service.Dto.CustomCreateDto;
 
 namespace ZooThree.Service.SpeciesService
 {

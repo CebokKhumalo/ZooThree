@@ -11,7 +11,7 @@ namespace ZooThree.Service.AnimalService
 {
     public interface IAnimalAppService: IApplicationService
     {
-        Task<AnimalDto> CreateAsync(CreateSpeciesDto input);
+        Task<AnimalDto> CreateAsync(CreateAnimalDto input);
         Task<AnimalDto> GetAsync(Guid id);
         Task<List<AnimalDto>> GetAllAsync();
         Task<AnimalDto> UpdateAsync(AnimalDto input);

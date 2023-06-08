@@ -35,7 +35,7 @@ namespace ZooThree.Service.AnimalService
         /// <summary>
         /// 
         /// </summary>
-        public async Task<AnimalDto> CreateAsync(CreateSpeciesDto input)
+        public async Task<AnimalDto> CreateAsync(CreateAnimalDto input)
         {
             /*var animal = ObjectMapper.Map<Animal>(input);
               /*    var species  = 
