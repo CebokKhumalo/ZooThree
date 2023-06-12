@@ -14,7 +14,7 @@ namespace ZooThree.Service.SpeciesService
         /// <summary>
         /// 
         /// </summary>
-        Task<SpeciesDto> CreateSpeciesAsync(SpeciesDto input);
+        Task<SpeciesDto> CreateSpeciesAsync(CreateSpeciesDto input);
 
         ///<summary>
         ///

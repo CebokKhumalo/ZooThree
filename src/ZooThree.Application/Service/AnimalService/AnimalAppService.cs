@@ -93,9 +93,15 @@ namespace ZooThree.Service.AnimalService
             return _mapper.Map<AnimalDto>(animal);
         }
 
-      /*  Task<AnimalDto> IAnimalAppService.CreateAsync(CreateSpeciesDto input)
+        public async Task<AnimalDto> GetAnimalByName(string animalName)
         {
-            throw new NotImplementedException();
-        }*/
+            var animal = await _animalRepository.FirstOrDefaultAsync(s => s.AnimalName.ToLower() == animalName.ToLower());
+            return ObjectMapper.Map<AnimalDto>(animal);
+        }
+
+        /*  Task<AnimalDto> IAnimalAppService.CreateAsync(CreateSpeciesDto input)
+          {
+              throw new NotImplementedException();
+          }*/
     }
 }

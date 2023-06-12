@@ -16,5 +16,7 @@ namespace ZooThree.Service.AnimalService
         Task<List<AnimalDto>> GetAllAsync();
         Task<AnimalDto> UpdateAsync(AnimalDto input);
         Task Delete(Guid id);
+
+        Task<AnimalDto> GetAnimalByName(string speciesName);
     }
 }
