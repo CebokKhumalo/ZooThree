@@ -81,6 +81,38 @@ namespace ZooThree.Service.PersonService
             return ObjectMapper.Map<PersonDto>(person);
         }
 
+        public async Task<PersonDto> GetAsyncByUsenameAndPassword(string userName, string password)
+        {
+            // Implement your logic to retrieve the person based on the provided email and password
+            // For example, you can use the UserManager to find the user by email and validate the password
+
+            // Replace the following code with your actual implementation
+            var person = await _personRepsitory.GetAll()
+                .FirstOrDefaultAsync(p => p.UserName == userName && p.Password == password);
+
+            return ObjectMapper.Map<PersonDto>(person);
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<PersonDto> GetAsyncByUsenameOrEmailAndPassword(string userNameOrEmail, string password)
+        {
+            // Implement your logic to retrieve the person based on the provided email and password
+            // For example, you can use the UserManager to find the user by email and validate the password
+
+            // Replace the following code with your actual implementation
+            var person = await _personRepsitory.GetAll()
+                .FirstOrDefaultAsync(p => p.UserName == userNameOrEmail || p.Email== userNameOrEmail && p.Password == password);
+
+            return ObjectMapper.Map<PersonDto>(person);
+        }
+
 
 
         /// <summary>
