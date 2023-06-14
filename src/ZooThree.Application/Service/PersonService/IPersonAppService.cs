@@ -28,6 +28,14 @@ namespace ZooThree.Service.PersonService
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        Task<PersonDto> GetAsyncByEmailAndPassword(string email, string password);
+
+        /// <summary>
+        /// 
+        /// </summary>
         Task<PersonDto> UpdateAsync(PersonDto input);
 
         ///<summary>

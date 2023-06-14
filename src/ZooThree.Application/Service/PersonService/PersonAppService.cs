@@ -3,6 +3,7 @@ using Abp.Domain.Repositories;
 using Abp.IdentityFramework;
 using Abp.Localization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,23 @@ namespace ZooThree.Service.PersonService
         /// <summary>
         /// 
         /// </summary>
+        public async Task<PersonDto> GetAsyncByEmailAndPassword(string email, string password)
+        {
+            // Implement your logic to retrieve the person based on the provided email and password
+            // For example, you can use the UserManager to find the user by email and validate the password
+
+            // Replace the following code with your actual implementation
+            var person = await _personRepsitory.GetAll()
+                .FirstOrDefaultAsync(p => p.Email == email && p.Password == password);
+
+            return ObjectMapper.Map<PersonDto>(person);
+        }
+
+
+
+        /// <summary>
+        /// 
+        /// </summary>
         public async Task<PersonDto> UpdateAsync(PersonDto input)
         {
             var person = _personRepsitory.Get(input.Id);
@@ -97,5 +115,6 @@ namespace ZooThree.Service.PersonService
         {
             identityResult.CheckErrors(_localizationManager);
         }
+
     }
 }
