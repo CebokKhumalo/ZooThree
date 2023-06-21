@@ -11,7 +11,9 @@ namespace ZooThree.Domain
     public class Animal: FullAuditedEntity<Guid>
     {
         public virtual string AnimalName { get; set; }
-        public Guid SpeciesId { get; set; }
+        public virtual RefListGender Gender { get; set; }
+        public virtual RefListHealthStatus HealthStatus { get; set; }  
+        public virtual Guid SpeciesId { get; set; }
        //public Species Species { get; set; }
         public virtual int Age { get; set; }
     }

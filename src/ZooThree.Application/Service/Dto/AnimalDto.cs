@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZooThree.Domain;
+using ZooThree.Domain.Enum;
 
 namespace ZooThree.Service.Dto
 {
@@ -14,6 +15,8 @@ namespace ZooThree.Service.Dto
     public class AnimalDto : EntityDto<Guid>
     {
         public string AnimalName { get; set; }
+        public  RefListGender? Gender { get; set; }
+        public  RefListHealthStatus? HealthStatus { get; set; }
         public SpeciesDto Species { get; set; }
         public int Age { get; set; }
     }

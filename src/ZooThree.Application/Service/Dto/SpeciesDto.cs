@@ -14,13 +14,13 @@ namespace ZooThree.Service.Dto
     {
         public string SpeciesName { get; set; }
 
-        public EnclosureDto Enclosure { get; set; }
+        //public EnclosureDto Enclosure { get; set; }
         public virtual string EnclosureName { get; set; }
         public int NumberAlive { get; set; }
         public int NumberDead { get; set; }
         public int NumberBirth { get; set; }
 
-
+        public Guid EnclosureId { get; set; }
         //  public ZookeepersDto Zookeepers { get; set; }
     }
 }

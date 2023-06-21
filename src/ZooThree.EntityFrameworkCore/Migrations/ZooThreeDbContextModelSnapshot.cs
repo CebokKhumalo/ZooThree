@@ -1591,6 +1591,12 @@ namespace ZooThree.Migrations
                     b.Property<DateTime?>("DeletionTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HealthStatus")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -1600,7 +1606,7 @@ namespace ZooThree.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("SpeciesId")
+                    b.Property<Guid?>("SpeciesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1743,6 +1749,8 @@ namespace ZooThree.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnclosureId");
 
                     b.ToTable("Specieses");
                 });
@@ -2033,9 +2041,7 @@ namespace ZooThree.Migrations
                 {
                     b.HasOne("ZooThree.Domain.Species", "Species")
                         .WithMany()
-                        .HasForeignKey("SpeciesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SpeciesId");
 
                     b.Navigation("Species");
                 });
@@ -2047,6 +2053,17 @@ namespace ZooThree.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ZooThree.Domain.Species", b =>
+                {
+                    b.HasOne("ZooThree.Domain.Enclosure", "Enclosure")
+                        .WithMany()
+                        .HasForeignKey("EnclosureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Enclosure");
                 });
 
             modelBuilder.Entity("ZooThree.MultiTenancy.Tenant", b =>
