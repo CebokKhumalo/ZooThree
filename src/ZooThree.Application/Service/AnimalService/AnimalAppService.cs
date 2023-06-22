@@ -2,6 +2,7 @@
 using Abp.Domain.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,8 +93,9 @@ namespace ZooThree.Service.AnimalService
             /// </summary>
             public async Task<List<AnimalDto>> GetAllAsync()
             {
-                return ObjectMapper.Map<List<AnimalDto>>(await _animalRepository.GetAllListAsync());
-            }
+            var animals = await _animalRepository.GetAllIncluding(a => a.Species).ToListAsync();
+            return ObjectMapper.Map<List<AnimalDto>>(animals);
+        }
 
             /// <summary>
             /// 

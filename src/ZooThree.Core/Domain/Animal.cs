@@ -14,7 +14,8 @@ namespace ZooThree.Domain
         public virtual RefListGender Gender { get; set; }
         public virtual RefListHealthStatus HealthStatus { get; set; }  
         public virtual Guid SpeciesId { get; set; }
-       //public Species Species { get; set; }
+       
+        public Species Species { get; set; }
         public virtual int Age { get; set; }
     }
 }
