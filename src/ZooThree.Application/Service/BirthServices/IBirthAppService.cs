@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZooThree.Domain;
+using ZooThree.Service.Dto.CustomCreateDto;
 
 namespace ZooThree.Service.BirthServices
 {
     public interface IBirthAppService : IApplicationService
     {
-        Task<BirthDto> CreateBirthAsync(BirthDto input);
+        Task<BirthDto> CreateBirthAsync(CreateBirthDto input);
 
         Task<BirthDto> GetBirthAsync(Guid id);
 

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ZooThree.Domain;
 using ZooThree.Service.AnimalService;
 using ZooThree.Service.Dto.CustomCreateDto;
+using ZooThree.Service.SpeciesService;
 
 namespace ZooThree.Service.BirthServices
 {
@@ -16,30 +17,41 @@ namespace ZooThree.Service.BirthServices
     {
         private readonly IRepository<BirthDto, Guid> _birthRepository;
         private readonly IAnimalAppService _animalAppService;
+        private readonly ISpeciesAppService _speciesAppService;
 
-        public BirthAppService(IRepository<BirthDto, Guid> birthRepository, IAnimalAppService animalAppService)
+        public BirthAppService(IRepository<BirthDto, Guid> birthRepository, IAnimalAppService animalAppService, ISpeciesAppService speciesAppService)
         {
             _birthRepository = birthRepository;
             _animalAppService = animalAppService;
+            _speciesAppService = speciesAppService;
         }
 
-        public async Task<BirthDto> CreateBirthAsync(BirthDto input)
+        public async Task<BirthDto> CreateBirthAsync(CreateBirthDto input)
         {
-            var birth = ObjectMapper.Map<BirthDto>(input);
+            var speciesDto = await _speciesAppService.GetSpeciesByName(input.SpeciesName) ?? throw new Exception("Species not found");
 
-            var createdBirth = await _birthRepository.InsertAsync(birth);
-
+          
             // Automatically create a new animal of the birth's species.
             var newAnimal = new CreateSpeciesDto
             {
                 AnimalName = input.Name,
-                SpeciesName = input.Species.SpeciesName,
+                SpeciesName = speciesDto.SpeciesName,
                 Age = 0 // Newly born animal
             };
 
-            await _animalAppService.CreateAsync(newAnimal);
+            var createdNewBirth = await _animalAppService.CreateAsync(newAnimal);
 
-            return ObjectMapper.Map<BirthDto>(createdBirth);
+            var species = await _speciesAppService.GetSpeciesAsync(speciesDto.Id);
+
+            species.NumberAlive++;
+
+
+            return ObjectMapper.Map<BirthDto>(createdNewBirth);
+
+
+         /*   await _animalAppService.CreateAsync(newAnimal);
+
+            return ObjectMapper.Map<BirthDto>(createdBirth);*/
         }
 
         public async Task DeleteBirthAsync(Guid id)
