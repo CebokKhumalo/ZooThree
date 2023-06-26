@@ -14,6 +14,7 @@ namespace ZooThree.EntityFrameworkCore
         public DbSet<Animal> Animals { get; set; }
         public DbSet<Enclosure> Enclosures { get; set; }
         public DbSet<Species> Specieses { get; set; }
+        public DbSet<Birth> Births { get; set; }
         public ZooThreeDbContext(DbContextOptions<ZooThreeDbContext> options)
             : base(options)
         {

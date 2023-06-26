@@ -1606,7 +1606,7 @@ namespace ZooThree.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid?>("SpeciesId")
+                    b.Property<Guid>("SpeciesId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -1614,6 +1614,46 @@ namespace ZooThree.Migrations
                     b.HasIndex("SpeciesId");
 
                     b.ToTable("Animals");
+                });
+
+            modelBuilder.Entity("ZooThree.Domain.Birth", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("CreatorUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("DeleterUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("LastModifierUserId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("SpeciesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SpeciesId");
+
+                    b.ToTable("Births");
                 });
 
             modelBuilder.Entity("ZooThree.Domain.Enclosure", b =>
@@ -2041,7 +2081,20 @@ namespace ZooThree.Migrations
                 {
                     b.HasOne("ZooThree.Domain.Species", "Species")
                         .WithMany()
-                        .HasForeignKey("SpeciesId");
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Species");
+                });
+
+            modelBuilder.Entity("ZooThree.Domain.Birth", b =>
+                {
+                    b.HasOne("ZooThree.Domain.Species", "Species")
+                        .WithMany()
+                        .HasForeignKey("SpeciesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Species");
                 });

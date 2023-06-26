@@ -15,7 +15,7 @@ namespace ZooThree.Service.BirthServices
         public BirthMapServices()
         {
             CreateMap<BirthDto, CreateBirthDto>()
-               .ForMember(x => x.SpeciesId, m => m.MapFrom(x => x.SpeciesId));
+               .ForMember(x => x.SpeciesName, m => m.MapFrom(x => x.SpeciesId));
 
 
             CreateMap<CreateBirthDto, BirthDto>()

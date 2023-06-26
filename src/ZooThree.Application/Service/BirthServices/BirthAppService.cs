@@ -28,30 +28,28 @@ namespace ZooThree.Service.BirthServices
 
         public async Task<BirthDto> CreateBirthAsync(CreateBirthDto input)
         {
-            var speciesDto = await _speciesAppService.GetSpeciesByName(input.SpeciesName) ?? throw new Exception("Species not found");
 
-          
-            // Automatically create a new animal of the birth's species.
-            var newAnimal = new CreateSpeciesDto
+            var speciesDto = await _speciesAppService.GetSpeciesByName(input.SpeciesName) ?? throw new Exception("Species not found");
+           
+            var newAnimal = new BirthDto
             {
-                AnimalName = input.Name,
-                SpeciesName = speciesDto.SpeciesName,
-                Age = 0 // Newly born animal
+                Name = input.Name,
+                //SpeciesName = input.SpeciesName,
+               // Age = 0 // Newly born animal
             };
 
-            var createdNewBirth = await _animalAppService.CreateAsync(newAnimal);
+            
 
-            var species = await _speciesAppService.GetSpeciesAsync(speciesDto.Id);
+            var createdBirth = await _birthRepository.InsertAsync(newAnimal);
 
-            species.NumberAlive++;
+            //var birth = ObjectMapper.Map<BirthDto>(input);
+
+            // Automatically create a new animal of the birth's species.
 
 
-            return ObjectMapper.Map<BirthDto>(createdNewBirth);
+          //  await _animalAppService.CreateAsync(newAnimal);
 
-
-         /*   await _animalAppService.CreateAsync(newAnimal);
-
-            return ObjectMapper.Map<BirthDto>(createdBirth);*/
+            return ObjectMapper.Map<BirthDto>(createdBirth);
         }
 
         public async Task DeleteBirthAsync(Guid id)

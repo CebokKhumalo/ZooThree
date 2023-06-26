@@ -17,7 +17,7 @@ namespace ZooThree.Domain
         {
             public string Name { get; set; }
 
-            public DateTime DateOfBirth { get; set; }
+           // public DateTime DateOfBirth { get; set; }
 
             public SpeciesDto Species { get; set; }
             public Guid SpeciesId { get; set; }
